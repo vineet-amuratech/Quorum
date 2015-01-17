@@ -3,12 +3,97 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+  <h1>Welcome to Quorum!</h1>
 
   {{> hello}}
+
+  {{> loginButtons}}
+
+
+{{#if currentUser}}
+ 	<p>You're logged in.</p>
+ 	
+
+{{> questions}}
+
+
+{{else}}
+ <p>You're not logged in.</p>
+{{/if}}
+
+
+<div class="modal fade" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+			<textarea name="answer" class="form-control"></textarea>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="button" class="btn btn-primary answer_question">Post</button>
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 </body>
+
 
 <template name="hello">
   <button>Click Me</button>
   <p>You've pressed the button {{counter}} times.</p>
+</template>
+
+<template name="questions">
+ {{#each questions}}
+	{{> question}}
+ {{/each}}
+</template>
+
+<template name="question">	
+   <div class="container question-container">
+   	<div class="row">
+	   	<div class="col-md-12 col-sm-12">
+	   		<div class="well">
+	   			<div class="content">
+	   				Q. {{content}}
+	   			</div>
+	   			<div class="pull-right">
+	  	 			<a href="javascript:;">upvote</a> | 
+	   				<a href="javascript:;"> downvote</a> |
+	   				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#answerModal">
+					  Answer
+					</button>
+	   			</div>
+	   			<div class="clr"></div>
+	   			<div class="answer-container">
+	   				{{> answer }}
+	   			</div>
+	   		</div>
+	   	</div>
+   	</div>
+   	</div>
+</template>
+<template name="answer">
+ 	<div class="row">
+	   	<div class="col-md-10 col-sm-10 col-md-offset-1">
+			<div class="content">
+				A. {{#with first_answer _id }}
+					{{content}}
+				{{/with}}
+			</div>
+			<div class="pull-right">
+					<a href="javascript:;">upvote</a> | 
+				<a href="javascript:;"> downvote</a>
+			</div>
+		</div>
+	</div>
 </template>

@@ -7,3 +7,8 @@
 meteor-platform
 autopublish
 insecure
+accounts-password
+accounts-ui
+manuelschoebel:less-boostrap-3
+iron:router
+less
